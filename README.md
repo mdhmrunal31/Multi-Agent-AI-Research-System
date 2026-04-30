@@ -184,12 +184,11 @@ Open `http://localhost:8501` in your browser and enter any research topic.
 ## 🙋‍♂️ Author
 
 **Mrunal Hadke**  
-Aspiring Data Engineer | GenAI | Python | SQL  
-
-PG-DBDA, CDAC Pune | B.Tech (Computer Technology), YCCE Nagpur  
+Data Engineer & GenAI Enthusiast
+PG-DBDA, Sunbeam, CDAC Pune | B.Tech (Computer Technology), YCCE Nagpur  
 
 [LinkedIn](https://www.linkedin.com/in/mrunal-hadke-23b114241/) · [GitHub](https://github.com/mdhmrunal31)
 
 ---
 
-*Building scalable data pipelines and AI-powered applications using LangChain, LangGraph, and modern LLM tools.*
+*Built with LangGraph · LangChain · Google Gemini 2.5 Flash Lite · Streamlit · Tavily*
