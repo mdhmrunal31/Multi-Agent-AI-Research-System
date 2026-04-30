@@ -155,8 +155,8 @@ cp .env.example .env
 ```
 
 ```env
-TAVILY_API_KEY=your_tavily_key_here
-GOOGLE_API_KEY=your_google_api_key_here
+TAVILY_API_KEY=tavily_api_key
+GOOGLE_API_KEY=google_api_key
 ```
 
 | Key | Get it from |
