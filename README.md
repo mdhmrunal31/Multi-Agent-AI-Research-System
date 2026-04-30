@@ -157,14 +157,12 @@ cp .env.example .env
 ```env
 TAVILY_API_KEY=your_tavily_key_here
 GOOGLE_API_KEY=your_google_api_key_here
-OPENROUTER_API_KEY=your_openrouter_key_here
 ```
 
 | Key | Get it from |
 |---|---|
 | `TAVILY_API_KEY` | [app.tavily.com](https://app.tavily.com) |
 | `GOOGLE_API_KEY` | [aistudio.google.com](https://aistudio.google.com) |
-| `OPENROUTER_API_KEY` | [openrouter.ai/settings/keys](https://openrouter.ai/settings/keys) |
 
 ### 5. Run the app
 ```bash
@@ -189,7 +187,7 @@ Open `http://localhost:8501` in your browser and enter any research topic.
 Data Engineer & GenAI Enthusiast
 PG-DBDA — CDAC Pune | B.Tech Computer Technology — YCCE Nagpur
 
-[LinkedIn](https://linkedin.com/in/your-profile) · [GitHub](https://github.com/mdhmrunal31)
+[LinkedIn]([https://linkedin.com/in/your-profile](https://www.linkedin.com/in/mrunal-hadke-23b114241/)) · [GitHub](https://github.com/mdhmrunal31)
 
 ---
 
