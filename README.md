@@ -185,6 +185,7 @@ Open `http://localhost:8501` in your browser and enter any research topic.
 
 **Mrunal Hadke**  
 Data Engineer & GenAI Enthusiast
+
 PG-DBDA, Sunbeam, CDAC Pune | B.Tech (Computer Technology), YCCE Nagpur  
 
 [LinkedIn](https://www.linkedin.com/in/mrunal-hadke-23b114241/) · [GitHub](https://github.com/mdhmrunal31)
