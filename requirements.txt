@@ -1,0 +1,40 @@
+# Core LangChain + LCEL (Runnables)
+langchain
+langchain-core
+langchain-community
+langchain-google-genai
+
+# LangGraph (for create_react_agent and agent workflows)
+langgraph
+
+# OpenRouter (used via OpenAI-compatible client)
+langchain-openai
+openai
+
+# Tavily Search Tool
+tavily-python
+
+# Web Scraping
+beautifulsoup4
+requests
+lxml
+
+# Environment Variables
+python-dotenv
+
+# Data Validation / Config
+pydantic
+
+# Async HTTP support (useful for agents/tools)
+httpx
+aiohttp
+
+# Token handling / model utilities
+tiktoken
+
+# Logging / debugging support
+rich
+
+# Optional: notebook testing during development
+jupyter
+ipython
