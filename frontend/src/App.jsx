@@ -616,7 +616,8 @@ export default function App() {
     sourceRef.current?.close()
 
     // const url = `/api/research/stream?topic=${encodeURIComponent(topic)}`
-    const url = `${import.meta.env.VITE_API_URL}/api/research/stream?topic=${encodeURIComponent(topic)}`
+    // const url = `${import.meta.env.VITE_API_URL}/api/research/stream?topic=${encodeURIComponent(topic)}`
+    const url = `https://multi-agent-ai-research-system-production-66ff.up.railway.app/api/research/stream?topic=${encodeURIComponent(topic)}`
     const es = new EventSource(url)
     sourceRef.current = es
 
