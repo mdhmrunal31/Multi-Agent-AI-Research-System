@@ -1,21 +1,22 @@
 # 🧠 Multi-Agent AI Research System
 
-An autonomous multi-agent AI pipeline that searches the web, reads sources, writes structured research reports, and critiques them — all in one click.
+An autonomous multi-agent AI pipeline that searches the web, reads sources, writes structured research reports, and critiques them — built with a full stack React + FastAPI architecture.
 
-> Enter any research topic → Get a full structured report with a quality score in minutes.
+> Enter any topic → 4 AI agents work in sequence → get a fully structured report with a quality score, streamed word by word in real time.
 
 ---
 
 ## 📌 Overview
 
-**ResearchMind** is a multi-agent AI system built using **LangGraph** and **LangChain LCEL**. It orchestrates 4 specialized AI agents and chains that work in sequence to autonomously research any topic and produce a professional report — without any manual effort.
+**ResearchMind** is a full stack multi-agent AI system built using **LangGraph** and **LangChain LCEL** on the backend, and **React + Vite** on the frontend. It orchestrates 4 specialized AI agents and chains that autonomously research any topic and produce a professional report — without any manual effort.
 
 - 🔍 **4 AI agents** working in a sequential pipeline
 - 🌐 **Live web search** via Tavily API (top 3 results per query)
 - 📄 **Deep content scraping** from the most relevant source
 - ✍️ **Structured report generation** with Introduction, Key Findings, Conclusion and Sources
-- 🧐 **Automated critique** with a Score out of 10, Strengths, and Areas to Improve
-- 💻 **Streamlit UI** with real-time step tracking and report download
+- 🧐 **Automated critique** with Score out of 10, Strengths, Areas to Improve, Verdict
+- ⚡ **Word-by-word streaming** via Server-Sent Events (like ChatGPT)
+- 💻 **React frontend** with live pipeline tracker, tabs, score ring and report download
 
 ---
 
@@ -49,7 +50,7 @@ User Input (Topic)
 └─────────────┬─────────────┘
               │
               ▼
-     📊 Final Report + Critique
+     📊 Streamed Report + Critique
 ```
 
 ---
@@ -67,15 +68,26 @@ User Input (Topic)
 
 ## ⚙️ Tech Stack
 
+### Backend
 | Layer | Technology |
 |---|---|
 | **LLM** | Google Gemini 2.5 Flash Lite (Google AI Studio) |
 | **Agent Framework** | LangGraph — `create_react_agent` |
 | **Chain Framework** | LangChain LCEL — `ChatPromptTemplate` + `StrOutputParser` |
+| **API Server** | FastAPI |
+| **Streaming** | Server-Sent Events (SSE) via `StreamingResponse` |
 | **Web Search** | Tavily Search API |
 | **Web Scraping** | BeautifulSoup4 + Requests |
-| **UI** | Streamlit |
 | **Environment** | Python-dotenv |
+
+### Frontend
+| Layer | Technology |
+|---|---|
+| **Framework** | React 18 + Vite |
+| **Styling** | Tailwind CSS |
+| **Icons** | Lucide React |
+| **Streaming** | EventSource API (SSE client) |
+| **Fonts** | Plus Jakarta Sans + JetBrains Mono |
 
 ---
 
@@ -87,9 +99,9 @@ User Input (Topic)
 | Search Results per Query | 3 |
 | Snippet Size per Result | 150 characters |
 | Max Scraped Content | 1500 characters |
-| Max Research Sent to Writer | ~1500 characters combined |
 | Max Report Sent to Critic | 2000 characters |
 | LLM Model | Gemini 2.5 Flash Lite |
+| Streaming | Word-by-word via SSE |
 | Average Pipeline Runtime | ~30–60 seconds |
 
 ---
@@ -99,31 +111,55 @@ User Input (Topic)
 ```
 Multi-Agent-AI-Research-System/
 │
-├── agents.py            # LLM setup, agent builders, writer & critic chains
-├── tools.py             # web_search and scrape_url tool definitions
-├── pipeline.py          # Orchestrates the full 4-step pipeline
-├── app.py               # Streamlit UI
+├── agents.py                # LLM setup, agent builders, writer & critic chains
+├── tools.py                 # web_search and scrape_url tool definitions
+├── pipeline.py              # Orchestrates the full 4-step pipeline (CLI)
 │
-├── .env                 # API keys — never pushed to GitHub
-├── .env.example         # Safe placeholder template
-├── .gitignore           # Ignores .env, .venv, __pycache__
-├── requirements.txt     # All Python dependencies
+├── backend/
+│   └── main.py              # FastAPI app — SSE streaming endpoint
+│
+├── frontend/
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   ├── postcss.config.js
+│   └── src/
+│       ├── main.jsx
+│       ├── App.jsx          # Full React UI
+│       └── App.css          # Custom animations and design system
+│
+├── .env                     # API keys — never pushed to GitHub
+├── .env.example             # Safe placeholder template
+├── .gitignore               # Ignores .env, .venv, __pycache__, node_modules
+├── requirements.txt         # Python dependencies
 └── README.md
 ```
 
 ---
 
-## 🖥️ Streamlit UI
+## 🖥️ Frontend UI Features
 
-- Dark editorial design with real-time pipeline step cards (idle → active → done)
-- Animated status bar showing what each agent is doing
-- Collapsible panels for Search Results, Scraped Content, Report and Critic Review
-- Critic score displayed in a circular badge (auto-extracted from output)
-- One-click report download as `.txt`
+- **Gradient hero section** — shimmer animated headline, floating color orbs, sample topic chips
+- **Live pipeline tracker** — 4 nodes with connecting progress lines, idle → active (glowing) → done (green ✓)
+- **Word-by-word streaming** — report streams token by token with a blinking cursor (ChatGPT style)
+- **Tabbed result view** — Report / Critic Review / Sources tabs
+- **Critic score ring** — dynamic color (green/orange/red based on score) with auto-extracted verdict
+- **Collapsible source panels** — Search Results and Scraped Content
+- **Download button** — saves the final report as `.txt`
+- **Error handling** — styled error banner with backend message
+- **Sticky frosted glass header** — with model and framework info chips
 
 ---
 
 ## 🚀 Getting Started
+
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- API keys for Tavily and Google AI Studio
+
+---
 
 ### 1. Clone the repository
 ```bash
@@ -142,9 +178,10 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install dependencies
+### 3. Install Python dependencies
 ```bash
 pip install -r requirements.txt
+pip install fastapi uvicorn
 ```
 
 ### 4. Set up API keys
@@ -155,8 +192,8 @@ cp .env.example .env
 ```
 
 ```env
-TAVILY_API_KEY=tavily_api_key
-GOOGLE_API_KEY=google_api_key
+TAVILY_API_KEY=your_tavily_key_here
+GOOGLE_API_KEY=your_google_api_key_here
 ```
 
 | Key | Get it from |
@@ -164,18 +201,28 @@ GOOGLE_API_KEY=google_api_key
 | `TAVILY_API_KEY` | [app.tavily.com](https://app.tavily.com) |
 | `GOOGLE_API_KEY` | [aistudio.google.com](https://aistudio.google.com) |
 
-### 5. Run the app
+### 5. Run the Backend — Terminal 1
 ```bash
-streamlit run app.py
+uvicorn backend.main:app --reload --port 8000
 ```
+Backend runs at `http://localhost:8000`
 
-Open `http://localhost:8501` in your browser and enter any research topic.
+### 6. Run the Frontend — Terminal 2
+```bash
+cd frontend
+npm install
+npm run dev
+```
+Frontend runs at `http://localhost:5173`
+
+Open `http://localhost:5173` in your browser and enter any research topic.
 
 ---
 
 ## 🔐 Security
 
 - `.env` is listed in `.gitignore` — never pushed to GitHub
+- `node_modules/` is listed in `.gitignore` — never pushed to GitHub
 - `.env.example` contains only placeholder values — safe to commit
 - Always regenerate API keys if accidentally exposed in a public repository
 
@@ -183,12 +230,12 @@ Open `http://localhost:8501` in your browser and enter any research topic.
 
 ## 🙋‍♂️ Author
 
-**Mrunal Hadke**  
+**Mrunal Hadke**
 Data Engineer & GenAI Enthusiast |
-PG-DBDA, Sunbeam, CDAC Pune | B.Tech (Computer Technology), YCCE Nagpur  
+PG-DBDA, Sunbeam, CDAC Pune | B.Tech (Computer Technology), YCCE Nagpur
 
 [LinkedIn](https://www.linkedin.com/in/mrunal-hadke-23b114241/) · [GitHub](https://github.com/mdhmrunal31)
 
 ---
 
-*Built with LangGraph · LangChain · Google Gemini 2.5 Flash Lite · Streamlit · Tavily*
+*Built with LangGraph · LangChain · Google Gemini 2.5 Flash Lite · FastAPI · React · Vite · Tailwind CSS · Tavily*

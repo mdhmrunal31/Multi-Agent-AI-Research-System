@@ -38,3 +38,6 @@ rich
 # Optional: notebook testing during development
 jupyter
 ipython
+
+fastapi
+uvicorn
