@@ -12,12 +12,16 @@ from agents import build_search_agent, build_reader_agent, writer_chain, critic_
 
 app = FastAPI(title="ResearchMind API", version="1.0.0")
 
+origins = [
+    "https://multi-agent-ai-research-system.vercel.app",
+    "https://multi-agent-ai-research-system-3gxqb3rgr-mdhmrunal31s-projects.vercel.app",
+    "http://localhost:5173",
+    "http://localhost:3000",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-    "https://multi-agent-ai-research-system.vercel.app",
-    "http://localhost:5173"
-],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -110,9 +114,9 @@ async def stream_research(topic: str):
         generate(),
         media_type="text/event-stream",
         headers={
-            "Cache-Control":    "no-cache",
+            "Cache-Control":     "no-cache",
             "X-Accel-Buffering": "no",
-            "Connection":       "keep-alive",
+            "Connection":        "keep-alive",
         },
     )
 
