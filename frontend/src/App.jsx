@@ -615,7 +615,8 @@ export default function App() {
     // Close any existing stream
     sourceRef.current?.close()
 
-    const url = `/api/research/stream?topic=${encodeURIComponent(topic)}`
+    // const url = `/api/research/stream?topic=${encodeURIComponent(topic)}`
+    const url = `${import.meta.env.VITE_API_URL}/api/research/stream?topic=${encodeURIComponent(topic)}`
     const es = new EventSource(url)
     sourceRef.current = es
 
