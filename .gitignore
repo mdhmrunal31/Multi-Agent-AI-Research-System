@@ -1,7 +1,17 @@
+# Environment variables (secrets!)
 .env
+
+# Virtual environment
 .venv/
+
+# Python cache
 __pycache__/
 *.pyc
-node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+frontend/node_modules/
 frontend/dist/
-frontend/.env.production
+.DS_Store
